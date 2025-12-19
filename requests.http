@@ -1,0 +1,38 @@
+@baseUrl = http://localhost:5113
+@contentType = application/json
+
+### Get all users
+GET {{baseUrl}}/api/users
+Accept: application/json
+
+### Get user by ID
+GET {{baseUrl}}/api/users/1
+Accept: application/json
+
+### Create a new user
+POST {{baseUrl}}/api/users
+Content-Type: {{contentType}}
+
+{
+  "name": "Alice",
+  "email": "alice@example.com",
+  "password": "P@ssword123"
+}
+
+### Update an existing user
+PUT {{baseUrl}}/api/users/1
+Content-Type: {{contentType}}
+
+{
+  "name": "Alice Updated",
+  "email": "alice.updated@example.com",
+  "password": "NewP@ssword456"
+}
+
+### Delete a user
+DELETE {{baseUrl}}/api/users/1
+Accept: application/json
+
+### Health check (optional if you added a ping endpoint)
+GET {{baseUrl}}/health
+Accept: application/json
