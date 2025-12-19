@@ -57,17 +57,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "User Management API", Version = "v1" });
-
-    // 👇 Add security definition
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Enter 'Bearer {your JWT token}'"
+        Title = "UserManagementAPI",
+        Version = "v1",
+        Description = "An ASP.NET Core Web API demonstrating custom LoggingMiddleware and ErrorHandlingMiddleware with JWT authentication.",
+        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        {
+            Name = "AlexandraPlRo",
+            Url = new Uri("https://github.com/alexandraplro/UserManagementAPI")
+        },
+        License = new Microsoft.OpenApi.Models.OpenApiLicense
+        {
+            Name = "MIT License",
+            Url = new Uri("https://opensource.org/licenses/MIT")
+        }
     });
 
     // 👇 Apply security requirement globally
@@ -98,13 +102,15 @@ app.UseErrorHandlingMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
-
 // Swagger (optional, usually before MapControllers)
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserManagementAPI v1");
+        c.RoutePrefix = string.Empty; // makes Swagger UI load at root URL
+    });
 }
 
 // Logging last
