@@ -78,6 +78,9 @@ Exception caught: Forced error for testing
 | **404 Not Found** | `curl -X GET "http://localhost:5062/api/NotReal"` | 404 | Incoming Request: GET /api/NotReal<br>Outgoing Response: 404 |
 | **500 Internal Server Error** (forced error) | `curl -X GET "http://localhost:5062/api/Users/error" -H "Authorization: Bearer <valid-token>"` | 500 | Incoming Request: GET /api/Users/error<br>Outgoing Response: 500<br>Exception caught: Forced error for testing |
 
+### Live Demo
+https://usermanagementapi-demo2.azurewebsites.net/index.html
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
